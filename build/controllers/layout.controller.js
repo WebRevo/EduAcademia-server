@@ -44,18 +44,7 @@ exports.createLayout = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, 
             }));
             await layout_model_1.default.create({ type: "FAQ", faq: faqItems });
         }
-        if (type === "Categories") {
-            const { categories } = req.body;
-            const categoriesItems = await Promise.all(categories.map(async (item) => {
-                return {
-                    title: item.title,
-                };
-            }));
-            await layout_model_1.default.create({
-                type: "Categories",
-                categories: categoriesItems,
-            });
-        }
+       
         res.status(200).json({
             success: true,
             message: "Layout created successfully",
@@ -106,21 +95,7 @@ exports.editLayout = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, ne
                 faq: faqItems,
             });
         }
-        if (type === "Categories") {
-            const { categories } = req.body;
-            const categoriesData = await layout_model_1.default.findOne({
-                type: "Categories",
-            });
-            const categoriesItems = await Promise.all(categories.map(async (item) => {
-                return {
-                    title: item.title,
-                };
-            }));
-            await layout_model_1.default.findByIdAndUpdate(categoriesData?._id, {
-                type: "Categories",
-                categories: categoriesItems,
-            });
-        }
+        
         res.status(200).json({
             success: true,
             message: "Layout Updated successfully",
